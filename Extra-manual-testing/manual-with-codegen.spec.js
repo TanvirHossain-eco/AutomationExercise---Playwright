@@ -1,0 +1,35 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://automationexercise.com/');
+  await page.getByRole('link', { name: ' Signup / Login' }).click();
+  await page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address').click();
+  await page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address').fill('tanvir.sharif123@test.com');
+  await page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address').press('Tab');
+  await page.getByRole('textbox', { name: 'Password' }).fill('Password123');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.locator('.overlay-content > .btn').first().click();
+  await page.getByRole('button', { name: 'Continue Shopping' }).click();
+  await page.locator('div:nth-child(5) > .product-image-wrapper > .single-products > .product-overlay > .overlay-content > .btn').click();
+  await page.getByRole('button', { name: 'Continue Shopping' }).click();
+  await page.getByRole('link', { name: ' Cart' }).click();
+  await page.getByText('Proceed To Checkout').click();
+  await page.locator('textarea[name="message"]').scrollIntoViewIfNeeded();
+  await page.locator('textarea[name="message"]').fill('This is a test order');
+  await page.getByRole('link', { name: 'Place Order' }).click();
+  await page.locator('input[name="name_on_card"]').click();
+  await page.locator('input[name="name_on_card"]').fill('Tanvir Sharif');
+  await page.locator('input[name="name_on_card"]').press('Tab');
+  await page.locator('input[name="card_number"]').fill('1234567890');
+  await page.getByRole('textbox', { name: 'ex.' }).click();
+  await page.getByRole('textbox', { name: 'ex.' }).fill('321');
+  await page.getByRole('textbox', { name: 'MM' }).click();
+  await page.getByRole('textbox', { name: 'MM' }).fill('05');
+  await page.getByRole('textbox', { name: 'YYYY' }).click();
+  await page.getByRole('textbox', { name: 'YYYY' }).fill('2035');
+  await page.getByRole('button', { name: 'Pay and Confirm Order' }).click();
+  await expect(page.getByText('Congratulations! Your order')).toBeVisible();
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('link', { name: 'Download Invoice' }).click();
+  const download = await downloadPromise;
+});
