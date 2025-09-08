@@ -28,13 +28,17 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # Task-1: UI E2E tests on all browsers
-      - name: Run UI E2E Tests (Task-1)
-        run: npx playwright test tests/task-1.spec.js
+      # Running all tests in Parallel
+      - name: Run Playwright tests
+        run: npx playwright test
 
-      # Task-2: API Automation - on all browsers
-      - name: Run API Automation (Task-2)
-        run: npx playwright test tests/task-2.spec.js
+      # # Task-1: UI E2E tests on all browsers
+      # - name: Run UI E2E Tests (Task-1)
+      #   run: npx playwright test tests/task-1.spec.js
+
+      # # Task-2: API Automation - on all browsers
+      # - name: Run API Automation (Task-2)
+      #   run: npx playwright test tests/task-2.spec.js
 
       # Upload reports
       - name: Upload Playwright Report
