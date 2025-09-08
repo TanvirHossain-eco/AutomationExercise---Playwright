@@ -3,6 +3,7 @@ import { expect } from '@playwright/test';
 export class CartPage {
   constructor(page) {
     this.page = page;
+    this.cartLink = 'a[href="/view_cart"]';
     this.messageBox = 'textarea[name="message"]';
     this.checkoutButton = 'a.check_out';
     this.emptyCartMessage = 'Cart is empty! Click here to';
@@ -88,5 +89,26 @@ export class CartPage {
 
   async proceedToCheckout() {
     await this.page.click(this.checkoutButton);
+  }
+
+  async clearCartIfNotEmpty() {
+    await this.page.click(this.cartLink);
+    await this.page.waitForLoadState('domcontentloaded');
+
+    const cartItems = await this.page.locator(this.cartItemsLocator).count();
+    if (cartItems > 0) {
+      console.log(`Found ${cartItems} items in cart. Clearing...`);
+      const deleteButtons = this.page.locator(this.deleteExtraCartItem);
+      const count = await deleteButtons.count();
+      for (let i = 0; i < count; i++) {
+        await deleteButtons.nth(i).click();
+        await this.page.waitForTimeout(500); // allow UI update
+      }
+      await this.page.waitForSelector('.cart_info', { state: 'detached', timeout: 5000 }).catch(() => {
+        console.log('Cart table still visible, but items likely cleared.');
+      });
+    } else {
+      console.log('Cart already empty.');
+    }
   }
 }

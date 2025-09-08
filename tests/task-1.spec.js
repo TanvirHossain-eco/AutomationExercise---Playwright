@@ -10,14 +10,14 @@ test('End-to-End Purchase Flow using POM & Invoice Per Browser', async ({ page, 
   // Step 1. Create Account via API
   const userData = {
     name: "Tanvir Sharif1",
-    email: `tanvir.sharif1@test.com`,
-    password: "Password321",
+    email: `tanvir.sharif3@test.com`,
+    password: "Password123",
     title: "Mr",
     birth_date: "10",
     birth_month: "May",
     birth_year: "1995",
     firstname: "Tanvir",
-    lastname: "Sharif1",
+    lastname: "Sharif3",
     company: "Test Ltd",
     address1: "123 Test Street",
     country: "Canada",
@@ -46,13 +46,18 @@ test('End-to-End Purchase Flow using POM & Invoice Per Browser', async ({ page, 
   await loginPage.login(userData.email, userData.password);
   await loginPage.assertLoggedIn();
 
+  // Clear cart if anything is already there
+  const cartPage = new CartPage(page);
+  await cartPage.clearCartIfNotEmpty();
+
+
   // Step 4. Add two products to the cart from two different categories
   const productPage = new ProductPage(page);
   await productPage.addWomenDress();
   await productPage.addMenTshirt();
 
   // Step 5. Checkout & Place Order
-  const cartPage = new CartPage(page);
+  // const cartPage = new CartPage(page);
   await cartPage.gotoCart();
   await cartPage.proceedToCheckout();
   // Verify Total Price is greater than 0

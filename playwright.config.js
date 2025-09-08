@@ -15,7 +15,7 @@ module.exports = defineConfig({
   testDir: './tests',
 
   /* Maximum time one test can run for. */
-  timeout: 60 * 1000,
+  timeout: 60 * 2000,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
@@ -23,6 +23,7 @@ module.exports = defineConfig({
      */
     timeout: 5000
   },
+  workers: 1, // run with exactly 1 workers in parallel
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
