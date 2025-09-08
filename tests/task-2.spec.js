@@ -1,15 +1,15 @@
 import { test, expect } from '@playwright/test';
 
 const buildUserPayload = (overrides = {}) => ({
-  name: 'Tanvir Sharif8',
-  email: `tanvir.sharif8@test.com`, // unique by default; can override
+  name: 'Tanvir Sharif9',
+  email: `tanvir.sharif9@test.com`, // unique by default; can override
   password: 'Password123',
   title: 'Mr',
   birth_date: '10',
   birth_month: 'May',
   birth_year: '1995',
   firstname: 'Tanvir',
-  lastname: 'Sharif8',
+  lastname: 'Sharif9',
   company: 'Test Ltd',
   address1: '123 Test Street',
   country: 'Canada',

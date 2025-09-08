@@ -56,11 +56,12 @@ Artifacts (reports, invoices) are uploaded and available in each successful run.
 - - File size > 0
 - - Limitation: Contains correct user name and total price - The verification of total price and user name code section is commented out because invoice.txt occasionally contains an incorrect total price due to system calculation issues. It is observed in all browsers.
 
-10. Flaky Test Observations
+10. Flaky Test Observations During Parallel Testing
 
 - Occasionally, only one product is added to the cart instead of two, causing the test to get stuck in the cart view and fail.
 - At times, more than two products are added to the cart, leading to failures when navigating to the cart view.
 - Sometimes, multiple quantities of a single product are added unexpectedly, which causes the test to hang in the cart view and fail.
 - In some cases, the test gets stuck during login or other steps, resulting in failure.
+- During local parallel testing with 2 workers, tests sometimes interfere with each other across browsers, causing overlapping issues.
 
 This README ensures anyone cloning the repo can run tests locally, understand parallel & cross-browser execution, and view CI/CD results.

@@ -23,7 +23,7 @@ module.exports = defineConfig({
      */
     timeout: 5000
   },
-  workers: 1, // run with exactly 1 workers in parallel
+  // workers: 1, // run with exactly 1 workers in parallel
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
