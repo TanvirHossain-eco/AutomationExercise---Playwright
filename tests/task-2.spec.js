@@ -68,6 +68,6 @@ test.describe.serial('Create Account API', () => {
     // Always should fail because email is reused
     expect(body.responseCode).toBe(400);
     expect(body.message).toContain('Email already exists');
-    console.log('Duplicate create response:', body);
+    console.log('Duplicate create response:', body); 
   });
 });
