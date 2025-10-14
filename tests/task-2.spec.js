@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { url } from 'inspector';
 
 const buildUserPayload = (overrides = {}) => ({
   name: 'Tanvir Sharif9',
@@ -39,6 +40,7 @@ test.describe.serial('Create Account API', () => {
     });
 
     expect(res.ok()).toBeTruthy();
+    url
     const body = await res.json();
 
     if (body.responseCode === 201) {
@@ -66,7 +68,6 @@ test.describe.serial('Create Account API', () => {
     // Always should fail because email is reused
     expect(body.responseCode).toBe(400);
     expect(body.message).toContain('Email already exists');
-
     console.log('Duplicate create response:', body);
   });
 });
